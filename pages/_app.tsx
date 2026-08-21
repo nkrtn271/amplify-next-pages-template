@@ -1,4 +1,5 @@
 import "@/styles/app.css";
+import "@/styles/loginstyle.css";
 import type { AppProps } from "next/app";
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
