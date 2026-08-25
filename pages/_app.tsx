@@ -1,20 +1,11 @@
-import "@/styles/app.css";
-import "@/styles/loginstyle.css";
-import type { AppProps } from "next/app";
-import { Authenticator } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui-react/styles.css'
-import { Amplify } from "aws-amplify";
-import outputs from "@/amplify_outputs.json";
-import "@aws-amplify/ui-react/styles.css";
+import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
 
-Amplify.configure(outputs);
+// Amplifyの設定（SSR対応）
+Amplify.configure(outputs, { ssr: true });
 
 export default function App({ Component, pageProps }: AppProps) {
-  return (
-      
-    <Authenticator>
-      <Component {...pageProps} />;
-    </Authenticator>
-  //<Component {...pageProps} />;
-  )
+  return <Component {...pageProps} />;
 }
