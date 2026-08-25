@@ -1,32 +1,47 @@
-// components/LineLoginButton.tsx
-import { signInWithRedirect } from 'aws-amplify/auth';
+"use client";
 
-export default function LineLoginButton() {
-  const handleLineLogin = async () => {
-    try {
-      await signInWithRedirect({
-        provider: {
-          custom: 'LINE', // amplify/auth/resource.ts で指定した名前
-        },
-      });
-    } catch (error) {
-      console.error('LINEログインへのリダイレクトに失敗しました:', error);
-    }
-  };
+import { Amplify } from "aws-amplify";
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "aws-amplify/auth/enable-oauth-listener";  // OAuth リダイレクト処理に必須
+import LineLoginButton from "./button";
 
+let configured = false;
+try {
+  const outputs = require("@/amplify_outputs.json");
+  Amplify.configure(outputs.default ?? outputs);
+  configured = true;
+} catch {
+  console.info(
+    "[AmplifyProvider] amplify_outputs.json が見つかりません。sandbox を起動してください。"
+  );
+}
+
+/** Amplify が設定済みかどうかを返す */
+export function isAmplifyConfigured(): boolean {
+  return configured;
+}
+
+/** Authenticator の SignIn フッターに LINE ボタンを追加 */
+const authenticatorComponents = {
+  SignIn: {
+    Footer() {
+      return <LineLoginButton />;
+    },
+  },
+};
+
+export default function AmplifyProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  if (!configured) {
+    return <>{children}</>;
+  }
   return (
-    <button
-      onClick={handleLineLogin}
-      style={{
-        backgroundColor: '#06C755',
-        color: '#fff',
-        padding: '10px 20px',
-        borderRadius: '5px',
-        border: 'none',
-        cursor: 'pointer',
-      }}
-    >
-      LINEでログイン
-    </button>
+    <Authenticator components={authenticatorComponents}>
+      {children}
+    </Authenticator>
   );
 }
