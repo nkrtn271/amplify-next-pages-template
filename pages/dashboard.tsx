@@ -12,8 +12,8 @@ export default function Dashboard() {
     async function checkUser() {
       try {
         const currentUser = await getCurrentUser();
-        const attributes = await fetchUserAttributes();
-        setUser({ ...currentUser, attributes });
+//        const attributes = await fetchUserAttributes();
+        setUser({ ...currentUser });
       } catch (err) {
         // 未ログインの場合はログインページ等へリダイレクト
         console.error('未認証です', err);
