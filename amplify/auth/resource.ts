@@ -22,11 +22,13 @@ export const auth = defineAuth({
       ],
       // 実際のデプロイ環境やローカルのコールバックURLを指定
       callbackUrls: [
+        'https://384e8bc2e53d9a03bf87.auth.us-west-2.amazoncognito.com/dashboard',
         'https://main.dxudjnyyl0lto.amplifyapp.com/dashboard',
 //        'http://localhost:3000/dashboard'
 //            'https://your-production-domain.com/',
       ],
       logoutUrls: [
+        'https://384e8bc2e53d9a03bf87.auth.us-west-2.amazoncognito.com/dashboard',
         'https://main.dxudjnyyl0lto.amplifyapp.com/dashboard',
 //        'http://localhost:3000/'
 //            'https://your-production-domain.com/',
