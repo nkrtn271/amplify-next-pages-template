@@ -14,10 +14,12 @@ export const auth = defineAuth({
           clientId: secret("LINE_CLIENT_ID"),
           clientSecret: secret("LINE_CLIENT_SECRET"),
           issuerUrl: 'https://access.line.me',
-          scopes: ['openid'],
-//          attributeMapping: {
-//            email: 'email',
-//         },
+          scopes: ["openid", "profile", "email"],
+          attributeMapping: {
+            email: "email",
+            fullname: "name",
+            profilePicture: "picture",
+          },
         },
       ],
       // 実際のデプロイ環境やローカルのコールバックURLを指定
